@@ -3,12 +3,25 @@ import React, { useState } from 'react'
 import { useNavigation, router } from 'expo-router'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { ArrowLeftIcon } from 'react-native-heroicons/solid'
-import { CustomButton } from '../../components/CustomButton'
-import { createUserWithEmailAndPassword } from "@react-native-firebase/auth"
-
+import  CustomButton  from '../../components/CustomButton'
+import auth, { createUserWithEmailAndPassword } from 'firebase/auth';
+import { FirebaseError } from 'firebase/app'
 
 const SignUp = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const handleSubmit = async () => {
+    if(email && password){
+      try{
+        await createUserWithEmailAndPassword(auth, email, password); 
+      }catch(err){
+        console.log("got error: ", err.message);
+      }
+    }
+  };
+
   const navigation = useNavigation();
+
   return (
     <View className="bg-blackk h-full flex-1">
       <SafeAreaView className="flex">
@@ -41,8 +54,8 @@ const SignUp = () => {
               <Text className="text-gray-700 ml-4 font-bold">Email Address</Text>
               <TextInput
                 className="p-3 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-                value='email'
-                // onChangeText={text=> setEmail(text)}
+                value={email}
+                onChangeText={value=> setEmail(value)}
                 placeholder='Enter Email'
               />
 
@@ -50,15 +63,17 @@ const SignUp = () => {
               <TextInput
                 className="p-3 bg-gray-100 text-gray-700 rounded-2xl mb-3"
                 secureTextEntry
-                value='password'
-                // onChangeText={text=> setPassword(text)}
+                value={password}
+                onChangeText={value=> setPassword(value)}
                 placeholder='Enter Password'
               />
               <TouchableOpacity className="py-3 bg-darkmainn rounded-xl top-3"
                 // onPress={handleSubmit}
+                onPress={()=>router.push('../(tabs)/Home')}
               >
                 <Text className="text-gray-700 font-xl font-bold text-center">Sign Up</Text>
               </TouchableOpacity>
+    
             </View>
 
             <Text className="text-xl text-gray-700 font-bold text-center py-6 top-1">Or</Text>

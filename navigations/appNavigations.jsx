@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from '../app/(tabs)/Home'
 import LoginScreen from '../app/(auth)/sign-in'
 import SignUpScreen from '../app/(auth)/sign-up'
-import Auth from '../hooks/useAuth'
+import useAuth from '../hooks/useAuth'
 import { Stack } from "expo-router";
 
 export default function AppNavigations() {

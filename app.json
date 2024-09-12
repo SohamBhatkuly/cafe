@@ -14,7 +14,12 @@
     },
     "android": {
       "package": "com.kafe.cafeteria",
-      "googleServicesFile": "./google-services.json"
+      "googleServicesFile": "google-services.json",
+      "config": {
+        "googleMaps": {
+          "apiKey": "YOUR_GOOGLE_MAPS_API_KEY"
+        }
+      }
     },
     "web": {
       "bundler": "metro",

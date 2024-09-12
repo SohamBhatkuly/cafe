@@ -1,10 +1,12 @@
 import { View, Text, ScrollView, TouchableOpacity, Image, TextInput } from 'react-native'
-import React from 'react'
+import { useState } from 'react'
 import { useNavigation, router } from 'expo-router'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { ArrowLeftIcon } from 'react-native-heroicons/solid'
 
 const SignIn = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigation = useNavigation();
   return (
     <View className="bg-blackk h-full flex-1">
@@ -28,7 +30,8 @@ const SignIn = () => {
             <Text className="text-gray-700 ml-4 font-bold">Email Address</Text>
             <TextInput
               className="p-3 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-              value='abc@gmail.com'
+              value={email}
+              onChangeText={setEmail}
               placeholder='Enter Email'
             />
 
@@ -36,13 +39,15 @@ const SignIn = () => {
             <TextInput
               className="p-3 bg-gray-100 text-gray-700 rounded-2xl mb-3"
               secureTextEntry
-              value="xyz1234"
+              value={password}
+              onChangeText={setPassword}
               placeholder='Enter Password'
             />
             <TouchableOpacity className="flex items-end mb-5">
               <Text className="text-gray-700">Forgot Password?</Text>
             </TouchableOpacity>
-            <TouchableOpacity className="py-3 bg-darkmainn rounded-xl">
+            <TouchableOpacity className="py-3 bg-darkmainn rounded-xl"
+            onPress={()=>router.push('../(tabs)/Home')}>
               <Text className="text-gray-700 font-xl font-bold text-center">Login</Text>
             </TouchableOpacity>
           </View>
