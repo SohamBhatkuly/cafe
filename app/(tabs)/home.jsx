@@ -71,7 +71,7 @@ const Home = () => {
                 setIsMenuOpen(false); 
               }}
             >
-              <Text className="text-black text-lg mb-2">Contact</Text>
+              <Text className="text-black text-lg mb-2">Menu</Text>
             </TouchableOpacity>
             <TouchableOpacity 
               onPress={() => { 
