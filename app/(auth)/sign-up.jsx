@@ -4,21 +4,27 @@ import { useNavigation, router } from 'expo-router'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { ArrowLeftIcon } from 'react-native-heroicons/solid'
 import  CustomButton  from '../../components/CustomButton'
-import auth, { createUserWithEmailAndPassword } from 'firebase/auth';
-import { FirebaseError } from 'firebase/app'
+import { createUser } from '../../api/user'
 
 const SignUp = () => {
+  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const handleSubmit = async () => {
-    if(email && password){
-      try{
-        await createUserWithEmailAndPassword(auth, email, password); 
-      }catch(err){
-        console.log("got error: ", err.message);
-      }
-    }
-  };
+
+  // const handleSubmit = async () => {
+  //   if(email && password){
+  //     try{
+  //       const response = await auth().createUserWithEmailAndPassword(email, password);
+
+  //       if(response.user){
+  //         await createProfile(response);
+  //         navigation.replace("Home");
+  //       }
+  //     }catch(e){
+  //       Alert.alert("Oops", "Please check your form and try again")
+  //     }
+  //   }
+  // };
 
   const navigation = useNavigation();
 
@@ -47,7 +53,8 @@ const SignUp = () => {
               <Text className="text-gray-700 ml-4 font-bold">Full Name</Text>
               <TextInput
                 className="p-3 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-                value='abc wow'
+                value={fullName}
+                onChangeText={value=> setFullName(value)}
                 placeholder='Enter Name'
               />
               
@@ -69,7 +76,8 @@ const SignUp = () => {
               />
               <TouchableOpacity className="py-3 bg-darkmainn rounded-xl top-3"
                 // onPress={handleSubmit}
-                onPress={()=>router.push('../(tabs)/Home')}
+                // onPress={()=>router.push('../(tabs)/Home')}
+                onPress={async () => await createUser(fullName, email, password)}
               >
                 <Text className="text-gray-700 font-xl font-bold text-center">Sign Up</Text>
               </TouchableOpacity>
