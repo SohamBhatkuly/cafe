@@ -1,18 +1,23 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { Tabs, Redirect } from 'expo-router'
+import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 
-const TabsLayout = () => {
+const StackLayout = () => {
   return (
     <>
-      <Tabs>
-        <Tabs.Screen name="home"/>
-        <Tabs.Screen name="about"/>
-        <Tabs.Screen name="gallery"/>
-        <Tabs.Screen name="menu"/>
-      </Tabs>
+      <Stack>
+        <Stack.Screen name="Home" options={{ headerShown: false }} />
+        <Stack.Screen name="about" options={{ headerShown: false }} />
+        <Stack.Screen name="gallery" options={{ headerShown: false }} />
+        <Stack.Screen name="menu" options={{ headerShown: false }} />
+        <Stack.Screen name="blog" options={{ headerShown: false }} />
+        <Stack.Screen name="contact" options={{ headerShown: false }} />
+        <Stack.Screen name="profile" options={{ headerShown: false }} />
+      </Stack>
+      <StatusBar backgroundColor="#161622" style='light'/>
     </>
-  )
-}
+    
+  );
 
-export default TabsLayout
+};
+
+export default StackLayout;

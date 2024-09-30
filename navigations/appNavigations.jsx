@@ -3,12 +3,12 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from '../app/(tabs)/Home'
 import LoginScreen from '../app/(auth)/sign-in'
 import SignUpScreen from '../app/(auth)/sign-up'
-import Auth from '../hooks/useAuth'
+import useAuth from '../hooks/useAuth'
 import { Stack } from "expo-router";
 
 export default function AppNavigations() {
-    const {user} = useAuth();
-    if(user){
+    // const {user} = useAuth();
+    // if(user){
         return(
             <NavigationContainer initialRouteName="Home">
                 <Stack.Navigator>
@@ -16,14 +16,14 @@ export default function AppNavigations() {
                 </Stack.Navigator>
             </NavigationContainer>
         )
-    }else{
-        return(
-            <NavigationContainer initialRouteName="Welcome">
-                <Stack.Navigator>
-                    <Stack.Screen name="Login" options={{headerShown: false}} component={LoginScreen}/>
-                    <Stack.Screen name="SignUp" options={{headerShown: false}} component={SignUpScreen}/>
-                </Stack.Navigator>
-            </NavigationContainer>
-        )
-    }
+    // }else{
+    //     return(
+    //         <NavigationContainer initialRouteName="Welcome">
+    //             <Stack.Navigator>
+    //                 <Stack.Screen name="Login" options={{headerShown: false}} component={LoginScreen}/>
+    //                 <Stack.Screen name="SignUp" options={{headerShown: false}} component={SignUpScreen}/>
+    //             </Stack.Navigator>
+    //         </NavigationContainer>
+    //     )
+    // }
 }

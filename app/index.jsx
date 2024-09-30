@@ -1,3 +1,4 @@
+//welcome page
 import { ScrollView, View, Text, Image, TouchableOpacity } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import { Redirect, router, useNavigation } from 'expo-router'
