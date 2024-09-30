@@ -23,9 +23,9 @@ const Home = () => {
             />
           </View>
           <View className="flex-row ml-auto my-auto space-x-2">
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
               <MagnifyingGlassIcon size={35} color="#fff" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity>
               <ShoppingCartIcon size={35} color="#fff" />
             </TouchableOpacity>
@@ -81,6 +81,22 @@ const Home = () => {
             >
               <Text className="text-black text-lg mb-2">Blogs</Text>
             </TouchableOpacity>
+            <TouchableOpacity 
+              onPress={() => { 
+                navigation.navigate('contact'); 
+                setIsMenuOpen(false);  // Close menu after navigation
+              }}
+            >
+              <Text className="text-black text-lg mb-2">Contact Us</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              onPress={() => { 
+                navigation.navigate('profile'); 
+                setIsMenuOpen(false);  // Close menu after navigation
+              }}
+            >
+              <Text className="text-black text-lg mb-2">Profile</Text>
+            </TouchableOpacity>
           </View>
         )}
 
@@ -110,7 +126,7 @@ const Home = () => {
               {/* Button */}
               <TouchableOpacity
                 className="py-3 bg-darkmainn rounded-xl px-[40px] mb-5"
-                onPress={() => navigation.navigate('Home')}
+                onPress={() => navigation.navigate('menu')}
               >
                 <Text className="text-xl font-bold text-center text-white">Get Yours Now</Text>
               </TouchableOpacity>

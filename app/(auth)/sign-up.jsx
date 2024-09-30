@@ -1,32 +1,88 @@
-import { View, Text, ScrollView, TouchableOpacity, Image, TextInput } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Image, TextInput, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { useNavigation, router } from 'expo-router'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { ArrowLeftIcon } from 'react-native-heroicons/solid'
 import  CustomButton  from '../../components/CustomButton'
 import { createUser } from '../../api/user'
+import { Feather } from '@expo/vector-icons' 
+import axios from 'axios';
+import Error from 'react-native-vector-icons/MaterialIcons';
 
 const SignUp = () => {
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  // const handleSubmit = async () => {
-  //   if(email && password){
-  //     try{
-  //       const response = await auth().createUserWithEmailAndPassword(email, password);
-
-  //       if(response.user){
-  //         await createProfile(response);
-  //         navigation.replace("Home");
-  //       }
-  //     }catch(e){
-  //       Alert.alert("Oops", "Please check your form and try again")
-  //     }
-  //   }
-  // };
-
   const navigation = useNavigation();
+  const [name, setName] = useState('');
+  const [nameVerify, setNameVerify] = useState(false);
+  const [email, setEmail] = useState('');
+  const [emailVerify, setEmailVerify] = useState(false);
+  const [password, setPassword] = useState('');
+  const [passwordVerify, setPasswordVerify] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  function handleSubmit(e) {
+    e.preventDefault(); 
+
+    if (!nameVerify || !emailVerify || !passwordVerify) {
+      alert('Please make sure all fields are valid.');
+      return; 
+    }
+
+    const userData = {
+      name, 
+      email,
+      password,
+    };
+
+    axios
+      // .post("http://192.168.173.218:5001/register", userData) // my hotspot
+      .post("http://192.168.0.106:5001/register", userData)   //wifi
+      // .post("http://192.168.33.218:5001/register", userData) // my hotspot
+      .then((res) => {
+        console.log('Response:', res.data);
+        Alert.alert('Signed In Successfully');
+        router.push('Home')
+      })
+      .catch(err => {
+        if (err.response && err.response.status === 'ok') {
+          // Assuming a 409 status means the user already exists
+          alert('User already exists. Please use a different email.');
+        } else {
+          console.log('Error:', err.response ? err.response.data : err.message);
+          alert('User Already Exists!!.');
+        }
+      });
+  }
+
+  function handleName(e){
+    e.persist();
+    const nameVar= e.nativeEvent.text;
+    setName(nameVar);
+    setNameVerify(false);
+    if(nameVar.length > 1){
+      setNameVerify(true);
+    }
+  }
+
+  function handleEmail(e){
+    e.persist();
+    const emailVar= e.nativeEvent.text;
+    setEmail(emailVar);
+    setEmailVerify(false);
+    if(/^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/.test(emailVar)){
+      setEmailVerify(true);
+    }
+  }
+
+  function handlePassword(e){
+    e.persist();
+    const passwordVar= e.nativeEvent.text;
+    setPassword(passwordVar);
+    setPasswordVerify(false);
+    if(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(passwordVar)){
+      setPassword(passwordVar);
+      setPasswordVerify(true);
+    }
+  }
 
   return (
     <View className="bg-blackk h-full flex-1">
@@ -47,37 +103,76 @@ const SignUp = () => {
         </ScrollView>
       </SafeAreaView>
       
-      <ScrollView className="mt-[-30px]">
+      <ScrollView className="mt-[-50px]" keyboardShouldPersistTaps="always">
         <View className="flex-1 bg-lightmainn mt-20 px-8 pt-10  rounded-t-[70px]">
             <View className="form space-y-2">
+              {/* Name Box */}
               <Text className="text-gray-700 ml-4 font-bold">Full Name</Text>
-              <TextInput
-                className="p-3 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-                value={fullName}
-                onChangeText={value=> setFullName(value)}
-                placeholder='Enter Name'
-              />
-              
-              <Text className="text-gray-700 ml-4 font-bold">Email Address</Text>
-              <TextInput
-                className="p-3 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-                value={email}
-                onChangeText={value=> setEmail(value)}
-                placeholder='Enter Email'
-              />
+              <View className="flex-row items-center bg-gray-100 rounded-2xl mb-3 pr-2">
+                <TextInput
+                  className="p-3 flex-1 text-gray-700 rounded-2xl"
+                  value={name}
+                  onChange={e => handleName(e)} 
+                  placeholder='Enter Name'
+                />
+                
+                {name.length<1 ? null : nameVerify ? (
+                  <Feather name = "check-circle" color="green" size={20}/>
+                ): (
+                  <Error name="error-outline" color="red" size={20}/>
+                )}
+              </View>
+                {name.length<1 ? null : nameVerify ? null : (
+                    <Text className="text-red-500 pb-2">Name should be more than 1 character</Text>
+                )}
 
+              {/* Email Box */}
+              <Text className="text-gray-700 ml-4 font-bold">Email Address</Text>
+              <View className="flex-row items-center bg-gray-100 rounded-2xl mb-3 pr-2">
+                <TextInput
+                  className="p-3 flex-1 text-gray-700 rounded-2xl "
+                  value={email}
+                  onChange={e => handleEmail(e)}
+                  placeholder='Enter Email'
+                />
+                {email.length<1 ? null : emailVerify ? (
+                  <Feather name = "check-circle" color="green" size={20}/>
+                ): (
+                  <Error name="error-outline" color="red" size={20}/>
+                )}
+              </View>
+                {email.length<1 ? null : emailVerify ? null : (
+                    <Text className="text-red-500 pb-2">Put proper email</Text>
+                )}
+
+              {/* Password Box */}
               <Text className="text-gray-700 ml-4 font-bold">Password</Text>
-              <TextInput
-                className="p-3 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-                secureTextEntry
-                value={password}
-                onChangeText={value=> setPassword(value)}
-                placeholder='Enter Password'
-              />
+              <View className="flex-row items-center bg-gray-100 rounded-2xl mb-3 pr-2">
+                <TextInput
+                  className="p-3 flex-1 text-gray-700 rounded-2xl"
+                  secureTextEntry={showPassword}
+                  value={password}
+                  onChange={e => handlePassword(e)}
+                  placeholder='Enter Password'
+                />
+                <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+                  {password.length<1 ? null :  !showPassword ? (
+                    <Feather
+                      name="eye-off"
+                      size={20}
+                    />
+                  ):(
+                    <Feather name="eye"
+                    size={20}
+                    />
+                  )}
+                </TouchableOpacity>
+              </View>
+                {password.length<1 ? null : passwordVerify ? null : (
+                    <Text className="text-red-500 pb-2">Uppercae, Lowercase, Number and 6 or more characters.</Text>
+                )}
               <TouchableOpacity className="py-3 bg-darkmainn rounded-xl top-3"
-                // onPress={handleSubmit}
-                // onPress={()=>router.push('../(tabs)/Home')}
-                onPress={async () => await createUser(fullName, email, password)}
+                onPress={(e) => handleSubmit(e)}
               >
                 <Text className="text-gray-700 font-xl font-bold text-center">Sign Up</Text>
               </TouchableOpacity>

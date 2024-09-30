@@ -7,8 +7,8 @@ import useAuth from '../hooks/useAuth'
 import { Stack } from "expo-router";
 
 export default function AppNavigations() {
-    const {user} = useAuth();
-    if(user){
+    // const {user} = useAuth();
+    // if(user){
         return(
             <NavigationContainer initialRouteName="Home">
                 <Stack.Navigator>
@@ -16,14 +16,14 @@ export default function AppNavigations() {
                 </Stack.Navigator>
             </NavigationContainer>
         )
-    }else{
-        return(
-            <NavigationContainer initialRouteName="Welcome">
-                <Stack.Navigator>
-                    <Stack.Screen name="Login" options={{headerShown: false}} component={LoginScreen}/>
-                    <Stack.Screen name="SignUp" options={{headerShown: false}} component={SignUpScreen}/>
-                </Stack.Navigator>
-            </NavigationContainer>
-        )
-    }
+    // }else{
+    //     return(
+    //         <NavigationContainer initialRouteName="Welcome">
+    //             <Stack.Navigator>
+    //                 <Stack.Screen name="Login" options={{headerShown: false}} component={LoginScreen}/>
+    //                 <Stack.Screen name="SignUp" options={{headerShown: false}} component={SignUpScreen}/>
+    //             </Stack.Navigator>
+    //         </NavigationContainer>
+    //     )
+    // }
 }
