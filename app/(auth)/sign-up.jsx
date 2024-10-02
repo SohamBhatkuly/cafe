@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 import { useNavigation, router } from 'expo-router'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { ArrowLeftIcon } from 'react-native-heroicons/solid'
-import  CustomButton  from '../../components/CustomButton'
-import { createUser } from '../../api/user'
+// import  CustomButton  from '../../components/CustomButton'
+// import { createUser } from '../../api/user'
 import { Feather } from '@expo/vector-icons' 
 import axios from 'axios';
 import Error from 'react-native-vector-icons/MaterialIcons';
@@ -40,7 +40,7 @@ const SignUp = () => {
       .then((res) => {
         console.log('Response:', res.data);
         Alert.alert('Signed In Successfully');
-        router.push('Home')
+        router.push('menu')
       })
       .catch(err => {
         if (err.response && err.response.status === 'ok') {
@@ -193,7 +193,7 @@ const SignUp = () => {
             </View>
             <View className="flex-row justify-center mt-7 pb-6">
               <Text className="text-gray-700 font-semibold">Already have an account?</Text>
-              <TouchableOpacity onPress={() => router.push('sign-in')}>
+              <TouchableOpacity onPress={() => router.push('menu')}>
                   <Text className="text-toodark font-semibold"> Login</Text>
               </TouchableOpacity>
             </View>

@@ -28,7 +28,7 @@ const SignIn = () => {
         console.log(res.data);
         if (res.data.status === 'ok') {
           Alert.alert('Logged In Successfully');
-          router.push('Home')
+          router.push('menu')
         } else {
           Alert.alert('Login Failed', res.data.error || 'Unknown error occurred');
         }
@@ -115,7 +115,7 @@ const SignIn = () => {
           </View>
           <View className="flex-row justify-center mt-7 py-3">
             <Text className="text-gray-700 font-semibold">Don't have an account?</Text>
-            <TouchableOpacity onPress={() => router.push('sign-up')}>
+            <TouchableOpacity onPress={() => router.push('menu')}>
               <Text className="text-toodark font-semibold"> Sign Up</Text>
             </TouchableOpacity>
           </View>

@@ -39,14 +39,15 @@ const Menu = () => {
 const filterByPrice = () => {
   console.log("Filter by Price clicked");
   if (!filterApplied) {
-    const sortedItems = [...items].sort((a, b) => a.price - b.price);
+    const sortedItems = [...items].sort((a, b) => b.price - a.price);
     setFilteredItems(sortedItems);
     setFilterApplied(true);
   } else {
-    
+   
     resetFilters();
   }
 };
+
 
 const filterByRating = () => {
   console.log("Filter by Rating clicked");

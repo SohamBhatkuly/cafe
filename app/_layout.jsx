@@ -1,7 +1,7 @@
-import { View, Text } from 'react-native'
+// import { View, Text } from 'react-native'
 import React from 'react'
 import { Slot, Stack } from 'expo-router'
-import HomeScreen from '../app/(tabs)/Home'
+// import HomeScreen from './(tabs)/home'
 
 const RootLayout = () => {
   return(

@@ -58,7 +58,7 @@ const MenuItems = ({ items }) => {
               <Image source={item.image} className="w-40 h-40 mr-3" />
               <View>
                 <Text className="text-white text-lg">{item.name}</Text>
-                <Text className="text-white">{item.price}</Text>
+                <Text className="text-white">{item.price}₹</Text>
                 <View className="flex-row items-center">
                   <Text className="text-white mr-1">{item.rating}</Text>
                   <FontAwesome name="star" size={16} color="yellow" />

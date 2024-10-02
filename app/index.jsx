@@ -45,13 +45,13 @@ export default function App() {
 
           <CustomButton
             title="Sign-up"
-            handlePress={()=>router.push('/sign-up')}
+            handlePress={()=>router.push('/menu')}
             containerStyles={"w-full mt-7"}
           />
 
           <View className="flex-row justify-center py-2">
             <Text className="text-gray-300 font-semibold">Already have an account?</Text>
-            <TouchableOpacity onPress={() => router.push('sign-in')}>
+            <TouchableOpacity onPress={() => router.push('menu')}>
                 <Text className="text-main font-semibold"> Log In</Text>
             </TouchableOpacity>
           </View>
